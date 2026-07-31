@@ -1,6 +1,14 @@
 import { z } from 'zod';
 
-export const HadesCommandTypeSchema = z.enum(['hello.ping']);
+export const HadesCommandTypeSchema = z.enum([
+  'hello.ping',
+  'dashboard.brief',
+  'dashboard.weather',
+  'dashboard.tasks',
+  'dashboard.calendar',
+  'dashboard.crypto',
+  'dashboard.system',
+]);
 
 export type HadesCommandType = z.infer<typeof HadesCommandTypeSchema>;
 
