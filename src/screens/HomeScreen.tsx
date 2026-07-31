@@ -1,15 +1,16 @@
-import { Bug, CheckCircle2, Gauge, Info, Loader2, Send, X } from 'lucide-react';
+import { Bug, CheckCircle2, Gauge, Info, Loader2, Radio, Send, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTelegram } from '../components/TelegramProvider';
 import { closeTelegramMiniApp, setBackButtonVisible } from '../telegram/sdk';
 import { sendHadesCommand } from '../telegram/sendCommand';
 
 type HomeScreenProps = {
+  onOpenAgents: () => void;
   onOpenDashboard: () => void;
   onOpenDebug: () => void;
 };
 
-export function HomeScreen({ onOpenDashboard, onOpenDebug }: HomeScreenProps) {
+export function HomeScreen({ onOpenAgents, onOpenDashboard, onOpenDebug }: HomeScreenProps) {
   const { snapshot } = useTelegram();
   const [isSending, setIsSending] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -70,6 +71,15 @@ export function HomeScreen({ onOpenDashboard, onOpenDebug }: HomeScreenProps) {
           >
             <Gauge aria-hidden="true" size={18} />
             <span>Dashboard</span>
+          </button>
+
+          <button
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-tg-border bg-tg-secondary px-4 text-sm font-semibold text-tg-text transition active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70"
+            onClick={onOpenAgents}
+            type="button"
+          >
+            <Radio aria-hidden="true" size={18} />
+            <span>Agent Control</span>
           </button>
 
           <button

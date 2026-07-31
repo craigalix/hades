@@ -8,9 +8,32 @@ export const HadesCommandTypeSchema = z.enum([
   'dashboard.calendar',
   'dashboard.crypto',
   'dashboard.system',
+  'agents.status',
+  'agents.detail',
+  'agents.context',
+  'agents.logs',
+  'agents.kill',
 ]);
 
 export type HadesCommandType = z.infer<typeof HadesCommandTypeSchema>;
+
+export const AgentIdPayloadSchema = z.object({
+  id: z.string().min(1).max(120),
+});
+
+export const AgentLogsPayloadSchema = z.object({
+  id: z.string().min(1).max(120),
+  lines: z.number().int().min(20).max(200).optional(),
+});
+
+export const AgentKillPayloadSchema = z.object({
+  id: z.string().min(1).max(120),
+  confirm: z.literal(true),
+});
+
+export type AgentIdPayload = z.infer<typeof AgentIdPayloadSchema>;
+export type AgentLogsPayload = z.infer<typeof AgentLogsPayloadSchema>;
+export type AgentKillPayload = z.infer<typeof AgentKillPayloadSchema>;
 
 export const HadesCommandSchema = z.object({
   v: z.literal(1),
