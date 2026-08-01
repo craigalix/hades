@@ -13,6 +13,7 @@ export const HadesCommandTypeSchema = z.enum([
   'agents.context',
   'agents.logs',
   'agents.kill',
+  'agents.create',
 ]);
 
 export type HadesCommandType = z.infer<typeof HadesCommandTypeSchema>;
@@ -31,6 +32,21 @@ export const AgentKillPayloadSchema = z.object({
   confirm: z.literal(true),
 });
 
+export const AgentCreatePayloadSchema = z.object({
+  id: z.string().min(1).max(64),
+  kind: z.string().min(1).max(64),
+  role: z.string().min(1).max(64),
+  goal: z.string().min(1).max(500),
+  personality: z.string().max(2000).optional(),
+}) satisfies z.ZodType<AgentCreatePayload>;
+
+export type AgentCreatePayload = {
+  id: string;
+  kind: string;
+  role: string;
+  goal: string;
+  personality?: string;
+};
 export type AgentIdPayload = z.infer<typeof AgentIdPayloadSchema>;
 export type AgentLogsPayload = z.infer<typeof AgentLogsPayloadSchema>;
 export type AgentKillPayload = z.infer<typeof AgentKillPayloadSchema>;
