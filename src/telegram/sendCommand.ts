@@ -2,7 +2,6 @@ import { HadesCommand, HadesCommandType, HadesCommandSchema } from '../protocol/
 import { getTelegramWebApp } from './sdk';
 
 const MAX_TELEGRAM_SEND_BYTES = 4096;
-const RECOMMENDED_SEND_BYTES = 3500;
 
 type SendCommandOptions<TPayload> = {
   type: HadesCommandType;
@@ -35,10 +34,6 @@ export async function sendHadesCommand<TPayload>(options: SendCommandOptions<TPa
 
   if (byteLength > MAX_TELEGRAM_SEND_BYTES) {
     throw new Error(`Command is ${byteLength} bytes, exceeding Telegram's ${MAX_TELEGRAM_SEND_BYTES} byte limit.`);
-  }
-
-  if (byteLength > RECOMMENDED_SEND_BYTES) {
-    throw new Error(`Command is ${byteLength} bytes; keep commands under ${RECOMMENDED_SEND_BYTES} bytes for reliability.`);
   }
 
   const miniApp = getTelegramWebApp();
