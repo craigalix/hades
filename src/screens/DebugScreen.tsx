@@ -43,7 +43,10 @@ export function DebugScreen({ onBack }: DebugScreenProps) {
         >
           <ArrowLeft aria-hidden="true" size={18} />
         </button>
-        <h1 className="min-w-0 flex-1 text-center text-base font-semibold text-tg-text">Telegram Info</h1>
+        <div className="min-w-0 flex-1 text-center">
+          <h1 className="text-base font-semibold text-tg-text">Settings / Debug</h1>
+          <p className="truncate text-sm text-tg-hint">Telegram and Hermes demo diagnostics</p>
+        </div>
         <button
           className="grid h-10 w-10 place-items-center rounded-lg border border-tg-border bg-tg-secondary text-tg-text"
           onClick={refresh}
@@ -59,6 +62,24 @@ export function DebugScreen({ onBack }: DebugScreenProps) {
           {error}
         </div>
       ) : null}
+
+      <section className="rounded-lg border border-tg-border bg-tg-secondary p-4">
+        <h2 className="text-sm font-semibold text-tg-text">Hermes Demo Mode</h2>
+        <p className="mt-2 text-sm leading-6 text-tg-hint">
+          This Mini App can run without a backend. Telegram command envelopes are sent with WebApp sendData when available;
+          otherwise the UI surfaces the local-dev error.
+        </p>
+        <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
+          <div className="rounded-lg border border-tg-border bg-tg-surface p-3">
+            <dt className="text-xs text-tg-hint">ntfy topic</dt>
+            <dd className="mt-1 font-semibold text-tg-text">hades-agents-craig</dd>
+          </div>
+          <div className="rounded-lg border border-tg-border bg-tg-surface p-3">
+            <dt className="text-xs text-tg-hint">Envelope source</dt>
+            <dd className="mt-1 font-semibold text-tg-text">hades</dd>
+          </div>
+        </dl>
+      </section>
 
       <JsonPanel title="Init Data" value={snapshot?.initData || '(empty)'} />
       <JsonPanel title="Theme Params" value={snapshot?.themeParams ?? {}} />

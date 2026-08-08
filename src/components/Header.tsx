@@ -8,8 +8,8 @@ export function Header() {
           <BrainCircuit aria-hidden="true" size={21} strokeWidth={1.8} />
         </div>
         <div>
-          <h1 className="text-base font-semibold tracking-[0] text-tg-text">HADES</h1>
-          <p className="text-xs text-tg-hint">Hermes command center</p>
+          <h1 className="text-base font-semibold tracking-[0] text-tg-text">Hermes Agent</h1>
+          <p className="text-xs text-tg-hint">HADES control centre</p>
         </div>
       </div>
     </header>

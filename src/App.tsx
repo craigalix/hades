@@ -1,34 +1,34 @@
 import { useCallback, useState } from 'react';
-import { AppShell } from './components/AppShell';
+import { AppShell, type AppScreen } from './components/AppShell';
 import { TelegramProvider } from './components/TelegramProvider';
-import { AgentControlScreen } from './screens/AgentControlScreen';
-import { DashboardScreen } from './screens/DashboardScreen';
 import { DebugScreen } from './screens/DebugScreen';
 import { HomeScreen } from './screens/HomeScreen';
-
-type Screen = 'home' | 'dashboard' | 'agents' | 'debug';
+import { KanbanScreen } from './screens/KanbanScreen';
+import { ProfilesScreen } from './screens/ProfilesScreen';
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>('home');
-  const openDashboard = useCallback(() => setScreen('dashboard'), []);
-  const openAgents = useCallback(() => setScreen('agents'), []);
+  const [screen, setScreen] = useState<AppScreen>('home');
+  const openKanban = useCallback(() => setScreen('kanban'), []);
+  const openProfiles = useCallback(() => setScreen('profiles'), []);
   const openDebug = useCallback(() => setScreen('debug'), []);
   const openHome = useCallback(() => setScreen('home'), []);
 
   const currentScreen =
-    screen === 'dashboard' ? (
-      <DashboardScreen onBack={openHome} />
-    ) : screen === 'agents' ? (
-      <AgentControlScreen onBack={openHome} />
+    screen === 'profiles' ? (
+      <ProfilesScreen onBack={openHome} />
+    ) : screen === 'kanban' ? (
+      <KanbanScreen onBack={openHome} />
     ) : screen === 'debug' ? (
       <DebugScreen onBack={openHome} />
     ) : (
-      <HomeScreen onOpenAgents={openAgents} onOpenDashboard={openDashboard} onOpenDebug={openDebug} />
+      <HomeScreen onOpenKanban={openKanban} onOpenProfiles={openProfiles} onOpenDebug={openDebug} />
     );
 
   return (
     <TelegramProvider>
-      <AppShell>{currentScreen}</AppShell>
+      <AppShell activeScreen={screen} onNavigate={setScreen}>
+        {currentScreen}
+      </AppShell>
     </TelegramProvider>
   );
 }
